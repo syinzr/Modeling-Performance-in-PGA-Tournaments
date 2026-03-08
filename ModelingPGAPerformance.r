@@ -60,6 +60,11 @@ norm.fit<- lmer(rawdiff ~ Latitude_re + Longitude_re + Altitude_re
 data=golf2.data)
 
 summary(norm.fit)
+#computing p-values based on normal approximation
+coefs<- summary(norm.fit)$coefficients
+pvals<- 2*(1-pnorm(abs(coefs[,"t value"])))
+
+cbind(coefs, "p value (normal approx.)"=pvals)
 
 #####################################################
 #conducting z-tests for equality to zero of sigmas  #
